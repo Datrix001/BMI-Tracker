@@ -5,6 +5,7 @@ import 'package:bmi_tracker/gen/assets.gen.dart';
 import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -14,23 +15,24 @@ class ForgotPasswordScreen extends StatefulWidget {
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-final TextEditingController phoneController = TextEditingController();
-
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final TextEditingController phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: appTextS1("Forgot Password"),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 42.w, right: 42.w, top: 20.h),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(child: Image.asset(Assets.png.forgotP.path, height: 300)),
+            Center(child: Image.asset(Assets.png.forgotP.path, height: 300.h)),
             Center(
               child: Padding(
                 padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
@@ -42,20 +44,30 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               color: AppColors.black.withAlpha(60),
               textAlign: TextAlign.center,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 10),
-              child: appTextB2("Enter your phone number"),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20, bottom: 10),
+            //   child: appTextB2("Enter your phone number"),
+            // ),
+            20.verticalSpace,
             CustomFormField(
-              hintText: "+91 9470435833",
+              hintText: "Enter your email id",
               isPassword: false,
               controller: phoneController,
             ),
             20.verticalSpace,
-            CustomButton(onPressed: () {}, buttonText: 'Get OTP'),
+            CustomButton(
+              onPressed: () => context.push("/otp-screen"),
+              buttonText: 'Get OTP',
+            ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
   }
 }

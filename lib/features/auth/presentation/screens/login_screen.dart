@@ -29,8 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
         automaticallyImplyLeading: false,
         title: appTextS1("Login"),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(left: 42.w, right: 42.w, top: 100.h),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(left: 42.w, right: 42.w, top: 70.h),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -101,8 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
   }
 }

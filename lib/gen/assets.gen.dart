@@ -65,11 +65,11 @@ class $AssetsPngGen {
   /// File path: assets/png/hidden.png
   AssetGenImage get hidden => const AssetGenImage('assets/png/hidden.png');
 
-  /// File path: assets/png/otp.png
-  AssetGenImage get otp => const AssetGenImage('assets/png/otp.png');
+  /// File path: assets/png/opt.png
+  AssetGenImage get opt => const AssetGenImage('assets/png/opt.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [eye, forgotP, hidden, otp];
+  List<AssetGenImage> get values => [eye, forgotP, hidden, opt];
 }
 
 class $AssetsSvgGen {

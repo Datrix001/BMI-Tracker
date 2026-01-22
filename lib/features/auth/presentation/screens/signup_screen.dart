@@ -20,6 +20,8 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +31,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         automaticallyImplyLeading: false,
         title: appTextS1("Register"),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(left: 42.w, right: 42.w, top: 40.h),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(left: 42.w, right: 42.w, top: 70.h),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -57,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CustomFormField(
               hintText: "Confirm your password",
               isPassword: true,
-              controller: passwordController,
+              controller: confirmPasswordController,
             ),
             20.verticalSpace,
             CustomButton(onPressed: () {}, buttonText: "Sign Up"),
@@ -71,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     color: AppColors.black.withAlpha(105),
                   ),
                   TextButton(
-                    onPressed: () => context.push("/signup-screen"),
+                    onPressed: () => context.push("/login-screen"),
                     child: appTextB1("Sign In"),
                   ),
                 ],
@@ -100,8 +103,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
   }
 }
