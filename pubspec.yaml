@@ -9,10 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
+  flutter_dotenv: ^6.0.0
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.3
+  get_it: ^9.2.0
   go_router: ^17.0.1
+  google_sign_in: ^7.2.0
   pinput: ^6.0.1
+  supabase_flutter: ^2.12.0
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +34,7 @@ flutter:
     - assets/png/
     - assets/svg/
     - assets/fonts/
+    - .env
 
   fonts:
     - family: NotoSans

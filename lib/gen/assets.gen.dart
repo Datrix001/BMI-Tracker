@@ -81,11 +81,14 @@ class $AssetsSvgGen {
   /// File path: assets/svg/Google.svg
   String get google => 'assets/svg/Google.svg';
 
+  /// File path: assets/svg/github.svg
+  String get github => 'assets/svg/github.svg';
+
   /// File path: assets/svg/tick.svg
   String get tick => 'assets/svg/tick.svg';
 
   /// List of all assets
-  List<String> get values => [appleLogo, google, tick];
+  List<String> get values => [appleLogo, google, github, tick];
 }
 
 class Assets {

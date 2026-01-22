@@ -2,7 +2,6 @@ import 'package:bmi_tracker/core/styles/app_text.dart';
 import 'package:bmi_tracker/features/auth/presentation/widgets/custom_button.dart';
 import 'package:bmi_tracker/gen/assets.gen.dart';
 import 'package:bmi_tracker/gen/colors.gen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
