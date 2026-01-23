@@ -74,6 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       await repository.signOut();
+      emit(AuthUnauthenticated());
     } catch (e) {
       emit(AuthFailure(errorMessage: e.toString()));
     }

@@ -6,7 +6,11 @@ import 'package:bmi_tracker/features/auth/presentation/screens/login_screen.dart
 import 'package:bmi_tracker/features/auth/presentation/screens/new_password_screen.dart';
 import 'package:bmi_tracker/features/auth/presentation/screens/otp_screen.dart';
 import 'package:bmi_tracker/features/auth/presentation/screens/signup_screen.dart';
+import 'package:bmi_tracker/features/home/presentation/screens/analyse.dart';
+import 'package:bmi_tracker/features/home/presentation/screens/bmi.dart';
 import 'package:bmi_tracker/features/home/presentation/screens/home_screen.dart';
+import 'package:bmi_tracker/features/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:bmi_tracker/features/profile/presentation/screens/profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -66,6 +70,22 @@ class AppNavigator {
       GoRoute(
         path: HomeScreen.routeName,
         builder: (context, state) => HomeScreen(),
+      ),
+      GoRoute(
+        path: ProfileScreen.routeName,
+        builder: (context, state) => ProfileScreen(),
+      ),
+      GoRoute(
+        path: AnalyseScreen.routeName,
+        builder: (context, state) => AnalyseScreen(),
+      ),
+      GoRoute(
+        path: BmiScreen.routeName,
+        builder: (context, state) => BmiScreen(),
+      ),
+      GoRoute(
+        path: EditProfileScreen.routeName,
+        builder: (context, state) => EditProfileScreen(),
       ),
     ],
     initialLocation: "/login-screen",
