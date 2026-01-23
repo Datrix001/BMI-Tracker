@@ -73,7 +73,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              CustomButton(onPressed: () {}, buttonText: "Login"),
+              CustomButton(
+                onPressed: () {
+                  context.read<AuthCubit>().signInUsingEmail(
+                    emailController.text,
+                    passwordController.text,
+                  );
+                },
+                buttonText: "Login",
+              ),
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),

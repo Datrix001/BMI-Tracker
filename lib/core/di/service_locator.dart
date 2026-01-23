@@ -16,5 +16,7 @@ Future<void> loadDependencies() async {
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(remoteDatsource: getIt<AuthRemoteDatsource>()),
   );
-  getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt<AuthRepository>()));
+  getIt.registerLazySingleton<AuthCubit>(
+    () => AuthCubit(getIt<AuthRepository>()),
+  );
 }

@@ -20,4 +20,29 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<void> signOut() async {
     return await remoteDatsource.signOut();
   }
+
+  @override
+  Future<void> signInUsingEmail(String email, String password) async {
+    return await remoteDatsource.signInUsingEmail(email, password);
+  }
+
+  @override
+  Future<void> signUpUsingEmail(String email, String password) async {
+    return await remoteDatsource.signUpUsingEmail(email, password);
+  }
+
+  @override
+  Future<void> sendResetPasswordForEmail(String email) async {
+    return await remoteDatsource.sendPasswordResetEmail(email);
+  }
+
+  @override
+  Future<void> updatePassword(String password) async {
+    return await remoteDatsource.updatePassword(password);
+  }
+
+  @override
+  Future<void> sendToken(String otp, String email) async {
+    return await remoteDatsource.sendToken(email, otp);
+  }
 }

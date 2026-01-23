@@ -65,17 +65,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 isPassword: true,
                 controller: passwordController,
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-                child: appTextB1("Re-Enter your password"),
-              ),
-              CustomFormField(
-                hintText: "Confirm your password",
-                isPassword: true,
-                controller: confirmPasswordController,
-              ),
+
               20.verticalSpace,
-              CustomButton(onPressed: () {}, buttonText: "Sign Up"),
+              CustomButton(
+                onPressed: () {
+                  context.read<AuthCubit>().signUpUsingEmail(
+                    emailController.text,
+                    passwordController.text,
+                  );
+                },
+                buttonText: "Sign Up",
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Row(
@@ -85,10 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       "Have an account?",
                       color: AppColors.black.withAlpha(105),
                     ),
-                    TextButton(
-                      onPressed: () => context.push("/login-screen"),
-                      child: appTextB1("Sign In"),
-                    ),
+                    TextButton(onPressed: () {}, child: appTextB1("Sign In")),
                   ],
                 ),
               ),

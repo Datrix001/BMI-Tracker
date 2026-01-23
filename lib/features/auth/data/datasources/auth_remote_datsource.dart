@@ -47,17 +47,63 @@ class AuthRemoteDatsource {
         idToken: idToken,
         accessToken: authorization.accessToken,
       );
-    } catch (e) {
-      print(e);
+    } on AuthException catch (e) {
+      throw e.message;
     }
+  }
 
-    // await client.auth.signInWithOAuth(
-    //   OAuthProvider.google,
-    //   redirectTo: 'io.supabase.flutter://login-callback',
-    // );
+  Future<void> signInUsingEmail(String email, String password) async {
+    try {
+      await client.auth.signInWithPassword(email: email, password: password);
+    } on AuthException catch (e) {
+      throw e.message;
+    }
+  }
+
+  Future<void> signUpUsingEmail(String email, String password) async {
+    try {
+      await client.auth.signUp(email: email, password: password);
+    } on AuthException catch (e) {
+      throw e.message;
+    }
   }
 
   Future<void> signOut() async {
-    await client.auth.signOut();
+    try {
+      await client.auth.signOut();
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await client.auth.resetPasswordForEmail(
+        email,
+        redirectTo: 'io.supabase.flutter://login-callback',
+      );
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> sendToken(String otp, String email) async {
+    try {
+      await client.auth.verifyOTP(
+        type: OtpType.recovery,
+        token: otp,
+        email: email,
+      );
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> updatePassword(String newPassword) async {
+    try {
+      await client.auth.updateUser(UserAttributes(password: newPassword));
+    } catch (e) {
+      throw e.toString();
+    }
   }
 }

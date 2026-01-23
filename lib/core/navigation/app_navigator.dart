@@ -13,11 +13,21 @@ import 'package:go_router/go_router.dart';
 class AppNavigator {
   static final route = GoRouter(
     redirect: (context, state) {
-      final authState = getIt<AuthCubit>().state;
+      final authCubit = getIt<AuthCubit>();
+      final authState = authCubit.state;
       final isLoggedIn = authState is AuthAuthenticated;
+
+      final isRecovering = authCubit.isRecoveringPassword;
       final isOnAuthRoute =
           state.matchedLocation == LoginScreen.routeName ||
-          state.matchedLocation == SignUpScreen.routeName;
+          state.matchedLocation == SignUpScreen.routeName ||
+          state.matchedLocation == ForgotPasswordScreen.routeName ||
+          state.matchedLocation == OtpScreen.routeName ||
+          state.matchedLocation == NewPasswordScreen.routeName;
+
+      if (isRecovering) {
+        return null;
+      }
 
       if (!isLoggedIn && !isOnAuthRoute) {
         return LoginScreen.routeName;
@@ -32,17 +42,11 @@ class AppNavigator {
     routes: [
       GoRoute(
         path: LoginScreen.routeName,
-        builder: (context, state) => BlocProvider(
-          create: (_) => getIt<AuthCubit>(),
-          child: LoginScreen(),
-        ),
+        builder: (context, state) => LoginScreen(),
       ),
       GoRoute(
         path: SignUpScreen.routeName,
-        builder: (context, state) => BlocProvider(
-          create: (_) => getIt<AuthCubit>(),
-          child: SignUpScreen(),
-        ),
+        builder: (context, state) => SignUpScreen(),
       ),
       GoRoute(
         path: ForgotPasswordScreen.routeName,
@@ -50,7 +54,10 @@ class AppNavigator {
       ),
       GoRoute(
         path: OtpScreen.routeName,
-        builder: (context, state) => OtpScreen(),
+        builder: (context, state) {
+          final email = state.extra as String;
+          return OtpScreen(email: email);
+        },
       ),
       GoRoute(
         path: NewPasswordScreen.routeName,
