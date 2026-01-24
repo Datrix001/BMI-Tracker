@@ -1,6 +1,7 @@
 import 'package:bmi_tracker/core/di/service_locator.dart';
 import 'package:bmi_tracker/core/navigation/app_navigator.dart';
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:bmi_tracker/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bmi_tracker/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
       providers: [
         BlocProvider<AuthCubit>.value(value: getIt<AuthCubit>()),
         BlocProvider<ProfileCubit>.value(value: getIt<ProfileCubit>()),
+        BlocProvider<HomeCubit>.value(value: getIt<HomeCubit>()),
       ],
       child: MainApp(),
     ),

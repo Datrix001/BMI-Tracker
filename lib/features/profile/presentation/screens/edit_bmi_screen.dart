@@ -22,6 +22,7 @@ class _EditBMiState extends State<EditBMi> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   final user = Supabase.instance.client.auth.currentUser;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -36,7 +37,8 @@ class _EditBMiState extends State<EditBMi> {
   Widget build(BuildContext context) {
     return BlocListener<ProfileCubit, ProfileState>(
       listener: (context, state) {
-        if (state is ProfileSentSuccess) {
+        if (state is ProfileTodayDataLoadedSuccess && _isSaving) {
+          _isSaving = false;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: appTextB1("Profile Data Update Successfully")),
           );
@@ -120,7 +122,6 @@ class _EditBMiState extends State<EditBMi> {
       weight: double.parse(weightController.text),
       height: double.parse(heightController.text),
       userid: user!.id,
-      created_at: DateTime.now(),
     );
 
     context.read<ProfileCubit>().sendData(editProfileModel);

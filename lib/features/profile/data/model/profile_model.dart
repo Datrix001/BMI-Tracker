@@ -9,15 +9,12 @@ class BmiModel {
   final double weight;
   final double height;
   final double bmi;
-  @JsonKey(name: 'created_at')
-  final DateTime created_at;
 
   BmiModel({
     required this.weight,
     required this.height,
     required this.bmi,
     required this.userid,
-    required this.created_at,
   });
 
   factory BmiModel.fromJson(Map<String, dynamic> json) =>

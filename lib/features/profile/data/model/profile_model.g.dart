@@ -11,7 +11,6 @@ BmiModel _$BmiModelFromJson(Map<String, dynamic> json) => BmiModel(
   height: (json['height'] as num).toDouble(),
   bmi: (json['bmi'] as num).toDouble(),
   userid: json['user_id'] as String,
-  created_at: DateTime.parse(json['created_at'] as String),
 );
 
 Map<String, dynamic> _$BmiModelToJson(BmiModel instance) => <String, dynamic>{
@@ -19,5 +18,4 @@ Map<String, dynamic> _$BmiModelToJson(BmiModel instance) => <String, dynamic>{
   'weight': instance.weight,
   'height': instance.height,
   'bmi': instance.bmi,
-  'created_at': instance.created_at.toIso8601String(),
 };

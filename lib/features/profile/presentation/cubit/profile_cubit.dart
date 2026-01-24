@@ -33,8 +33,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> sendData(BmiModel model) async {
     emit(ProfileLoading());
     try {
-      final sendData = await repository.sendData(model);
-      emit(ProfileSentSuccess());
+      await repository.sendData(model);
+      final todayData = await repository.fetchTodayData(model.userid);
+      emit(ProfileTodayDataLoadedSuccess(model: todayData));
+      // emit(ProfileSentSuccess());
     } catch (e) {
       emit(ProfileFailure(errorMessage: e.toString()));
     }
