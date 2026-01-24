@@ -1,6 +1,7 @@
 import 'package:bmi_tracker/core/di/service_locator.dart';
 import 'package:bmi_tracker/core/navigation/app_navigator.dart';
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:bmi_tracker/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,7 +19,10 @@ Future<void> main() async {
   await loadDependencies();
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider<AuthCubit>.value(value: getIt<AuthCubit>())],
+      providers: [
+        BlocProvider<AuthCubit>.value(value: getIt<AuthCubit>()),
+        BlocProvider<ProfileCubit>.value(value: getIt<ProfileCubit>()),
+      ],
       child: MainApp(),
     ),
   );

@@ -9,9 +9,8 @@ import 'package:bmi_tracker/features/auth/presentation/screens/signup_screen.dar
 import 'package:bmi_tracker/features/home/presentation/screens/analyse.dart';
 import 'package:bmi_tracker/features/home/presentation/screens/bmi.dart';
 import 'package:bmi_tracker/features/home/presentation/screens/home_screen.dart';
-import 'package:bmi_tracker/features/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:bmi_tracker/features/profile/presentation/screens/edit_bmi_screen.dart';
 import 'package:bmi_tracker/features/profile/presentation/screens/profile.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppNavigator {
@@ -83,10 +82,7 @@ class AppNavigator {
         path: BmiScreen.routeName,
         builder: (context, state) => BmiScreen(),
       ),
-      GoRoute(
-        path: EditProfileScreen.routeName,
-        builder: (context, state) => EditProfileScreen(),
-      ),
+      GoRoute(path: EditBMi.routeName, builder: (context, state) => EditBMi()),
     ],
     initialLocation: "/login-screen",
     debugLogDiagnostics: true,

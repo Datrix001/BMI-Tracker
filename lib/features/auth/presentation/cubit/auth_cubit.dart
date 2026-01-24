@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:bmi_tracker/features/auth/presentation/screens/new_password_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 import 'auth_state.dart';

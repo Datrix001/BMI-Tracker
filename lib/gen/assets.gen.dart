@@ -94,10 +94,14 @@ class $AssetsSvgGen {
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsColorsGen colors = $AssetsColorsGen();
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsPngGen png = $AssetsPngGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

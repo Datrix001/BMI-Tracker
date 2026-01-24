@@ -3,7 +3,6 @@ import 'package:bmi_tracker/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bmi_tracker/features/auth/widgets/custom_button.dart';
 import 'package:bmi_tracker/gen/assets.gen.dart';
-import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

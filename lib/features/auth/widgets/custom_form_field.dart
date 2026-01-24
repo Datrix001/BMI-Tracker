@@ -10,6 +10,7 @@ class CustomFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final bool? isEnabled;
 
   const CustomFormField({
     super.key,
@@ -18,6 +19,7 @@ class CustomFormField extends StatefulWidget {
     this.suffixIcon,
     required this.controller,
     this.validator,
+    this.isEnabled,
   });
 
   @override
@@ -30,6 +32,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: widget.isEnabled,
       controller: widget.controller,
       validator: widget.validator,
       obscureText: widget.isPassword ? _obscureText : false,
@@ -64,6 +67,10 @@ class _CustomFormFieldState extends State<CustomFormField> {
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(color: AppColors.red),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(color: AppColors.black.withAlpha(40)),
         ),
       ),
     );

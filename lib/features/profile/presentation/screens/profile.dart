@@ -2,11 +2,13 @@ import 'package:bmi_tracker/core/styles/app_text.dart';
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_state.dart';
 import 'package:bmi_tracker/features/profile/presentation/widgets/Custom_icon_button.dart';
+import 'package:bmi_tracker/features/profile/presentation/widgets/custom_dialog_box.dart';
 import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,6 +19,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final user = Supabase.instance.client.auth.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
@@ -37,25 +41,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Center(
               child: Container(
                 height: 80.h,
-                width: 100.w,
+                width: 90.w,
                 decoration: BoxDecoration(
                   color: AppColors.black,
                   borderRadius: BorderRadius.circular(90.r),
                 ),
-                child: Icon(Icons.person, color: AppColors.white, size: 70.3.h),
+                child: user?.userMetadata?['avatar_url'] != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(50.r),
+                        child: Image.network(user?.userMetadata?['avatar_url']),
+                      )
+                    : Icon(Icons.person, color: AppColors.white, size: 70.3.h),
               ),
             ),
             20.verticalSpace,
             CustomIconButton(
-              onTap: () => context.push("/edit-profile"),
-              buttonText: "Edit Profile",
+              onTap: () => context.push("/edit-bmi"),
+              buttonText: "Edit Today's BMI",
               icon: Icons.person,
             ),
 
             CustomIconButton(
-              onTap: () => context.read<AuthCubit>().signOut(),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return CustomDialogBox(
+                      aboutText: "Are you Sure?",
+                      yesText: "Yes",
+                      noText: "No",
+                      onPressed: () => context.read<AuthCubit>().signOut(),
+                    );
+                  },
+                );
+              },
               buttonText: "Logout",
-              icon: Icons.person,
+              icon: Icons.logout_rounded,
             ),
           ],
         ),

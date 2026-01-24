@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bmi_tracker/core/styles/app_text.dart';
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_state.dart';
