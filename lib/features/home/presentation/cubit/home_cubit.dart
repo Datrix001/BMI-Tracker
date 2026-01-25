@@ -18,9 +18,20 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  Future<void> getTotalData(String id) async {
+    emit(HomeLoading());
+    try {
+      final data = await repository.fetchLatestData(id);
+      emit(LatestHomeDataSuccessfully(model: data));
+    } catch (e) {
+      emit(HomeDataFailure(errorMessage: e.toString()));
+    }
+  }
+
   Future<void> sendData(BmiModel model) async {
     emit(HomeLoading());
     try {
+      print("sending data ${model.bmi}");
       await repository.sendData(model);
       final data = await repository.fetchTodayData(model.userid);
       emit(HomeDataSuccessfully(model: data));
@@ -30,16 +41,22 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> sendProfileData() async {
-    try {
-      final user = Supabase.instance.client.auth.currentUser;
-      if (user == null) return;
+    final user = Supabase.instance.client.auth.currentUser;
 
-      await repository.sendProfileData(
-        email: user.email ?? '',
-        name:
-            user.userMetadata?['name'] ?? user.userMetadata?['full_name'] ?? '',
-        id: user.id,
-      );
-    } catch (_) {}
+    if (user == null) {
+      print("❌ user null in sendProfileData");
+      return;
+    }
+
+    print("sendProfileData: UPSERTING profile");
+    print("auth.uid = ${user.id}");
+
+    await repository.sendProfileData(
+      id: user.id,
+      email: user.email ?? '',
+      name: user.userMetadata?['name'] ?? user.userMetadata?['full_name'] ?? '',
+    );
+
+    print("✅ sendProfileData done");
   }
 }

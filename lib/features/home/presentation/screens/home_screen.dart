@@ -21,8 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  final List<Widget> _pages = [BmiScreen(), AnalyseScreen(), ProfileScreen()];
-  final List<String> _pageName = ["BMI", "Analyse", "Profile"];
+  final List<Widget> _pages = [BmiScreen(), ProfileScreen()];
+  final List<String> _pageName = ["BMI", "Profile"];
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: _navigateScreen,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
-            label: "Analyse",
-          ),
+
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),

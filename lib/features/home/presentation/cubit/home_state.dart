@@ -13,6 +13,12 @@ class HomeDataSuccessfully extends HomeState {
   HomeDataSuccessfully({required this.model});
 }
 
+class LatestHomeDataSuccessfully extends HomeState {
+  final List<BmiModel?> model;
+
+  LatestHomeDataSuccessfully({required this.model});
+}
+
 class HomeDataFailure extends HomeState {
   final String errorMessage;
 

@@ -31,23 +31,33 @@ class ProfileRemoteDatasources {
   //   }
   // }
 
-  Future<void> updateTodayData(BmiModel model) async {
+  Future<void> upsertTodayData(BmiModel model) async {
     final nowUtc = DateTime.now().toUtc();
-    final startOfDayUtc = DateTime.utc(nowUtc.year, nowUtc.month, nowUtc.day);
-    final endOfDayUtc = startOfDayUtc.add(const Duration(days: 1));
+    final start = DateTime.utc(nowUtc.year, nowUtc.month, nowUtc.day);
+    final end = start.add(const Duration(days: 1));
 
-    final data = {
+    final existing = await client
+        .from('bmi_history')
+        .select('id')
+        .eq('user_id', model.userid)
+        .gte('created_at', start.toIso8601String())
+        .lt('created_at', end.toIso8601String())
+        .maybeSingle();
+
+    final payload = {
+      'user_id': model.userid,
       'weight': model.weight,
       'height': model.height,
       'bmi': model.bmi,
     };
 
-    await client
-        .from('bmi_history')
-        .update(data)
-        .eq('user_id', model.userid)
-        .gte('created_at', startOfDayUtc.toIso8601String())
-        .lt('created_at', endOfDayUtc.toIso8601String());
+    if (existing == null) {
+      print("➕ inserting today's BMI");
+      await client.from('bmi_history').insert(payload);
+    } else {
+      print("✏️ updating today's BMI");
+      await client.from('bmi_history').update(payload).eq('id', existing['id']);
+    }
   }
 
   Future<List<BmiModel>> fetchLatestData(String id) async {
@@ -79,22 +89,23 @@ class ProfileRemoteDatasources {
   }
 
   Future<void> sendProfileData({
-    required String name,
-    required String email,
     required String id,
+    required String email,
+    required String name,
   }) async {
-    final existing = await client
-        .from('profile')
-        .select()
-        .eq('id', id)
-        .maybeSingle();
+    try {
+      print("➕ inserting profile for $id");
 
-    if (existing != null) return;
+      await client.from('profile').insert({
+        'id': id,
+        'email': email,
+        'name': name,
+      });
 
-    await client.from('profile').insert({
-      'id': id,
-      'email': email,
-      'name': name,
-    });
+      print("✅ profile inserted");
+    } catch (e) {
+      // Duplicate key = profile already exists → totally fine
+      print("ℹ️ profile already exists, skipping insert");
+    }
   }
 }

@@ -3,9 +3,8 @@ import 'package:bmi_tracker/features/auth/widgets/custom_button.dart';
 import 'package:bmi_tracker/features/auth/widgets/custom_form_field.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_state.dart';
+import 'package:bmi_tracker/features/home/presentation/widgets/my_bar_graph.dart';
 import 'package:bmi_tracker/features/profile/data/model/profile_model.dart';
-import 'package:bmi_tracker/features/profile/presentation/cubit/profile_cubit.dart';
-import 'package:bmi_tracker/features/profile/presentation/cubit/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,13 +25,21 @@ class _BmiScreenState extends State<BmiScreen> {
 
   @override
   void initState() {
-    _bootstrap();
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bootstrap();
+    });
   }
 
   Future<void> _bootstrap() async {
-    await context.read<HomeCubit>().sendProfileData();
-
+    Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+      final session = data.session;
+      if (session != null) {
+        context.read<HomeCubit>().sendProfileData();
+      }
+    });
+    if (!mounted) return;
     if (user?.id != null) {
       context.read<HomeCubit>().getData(user!.id);
     }
@@ -99,7 +106,7 @@ class _BmiScreenState extends State<BmiScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Center(child: appTextH1("DONE FOR TODAY!!"))],
+          children: [FancyLineChart()],
         );
       },
     );

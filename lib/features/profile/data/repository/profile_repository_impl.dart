@@ -19,7 +19,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   Future<void> sendData(BmiModel model) {
-    return remoteDatasources.updateTodayData(model);
+    return remoteDatasources.upsertTodayData(model);
   }
 
   @override
