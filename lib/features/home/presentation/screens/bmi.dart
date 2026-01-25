@@ -76,10 +76,10 @@ class _BmiScreenState extends State<BmiScreen> {
 
                   Padding(
                     padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
-                    child: appTextB1("Enter your weight"),
+                    child: appTextB1("Enter your weight "),
                   ),
                   CustomFormField(
-                    hintText: "Enter your Weight",
+                    hintText: "Please Enter Your Weight in kgs",
                     isPassword: false,
                     controller: weightController,
                   ),
@@ -88,7 +88,7 @@ class _BmiScreenState extends State<BmiScreen> {
                     child: appTextB1("Enter your height"),
                   ),
                   CustomFormField(
-                    hintText: "Enter Your Height",
+                    hintText: "Please Enter Your height in meters",
                     isPassword: false,
                     controller: heightController,
                   ),
