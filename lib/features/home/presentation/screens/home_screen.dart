@@ -1,7 +1,7 @@
 import 'package:bmi_tracker/core/styles/app_text.dart';
-import 'package:bmi_tracker/features/home/presentation/screens/analyse.dart';
 import 'package:bmi_tracker/features/home/presentation/screens/bmi.dart';
 import 'package:bmi_tracker/features/profile/presentation/screens/profile.dart';
+import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: appTextS1(_pageName[current_index]),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: AppColors.black,
+        unselectedItemColor: AppColors.black.withAlpha(80),
         currentIndex: current_index,
         onTap: _navigateScreen,
         items: [

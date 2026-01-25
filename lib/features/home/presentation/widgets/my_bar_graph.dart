@@ -1,12 +1,12 @@
 import 'package:bmi_tracker/core/styles/app_text.dart';
+import 'package:bmi_tracker/core/styles/app_text_style.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/bmi_cubit.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/bmi_state.dart';
-import 'package:bmi_tracker/features/home/presentation/cubit/home_cubit.dart';
-import 'package:bmi_tracker/features/home/presentation/cubit/home_state.dart';
-import 'package:bmi_tracker/features/home/presentation/screens/bmi.dart';
+import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FancyLineChart extends StatefulWidget {
@@ -31,8 +31,6 @@ class _FancyLineChartState extends State<FancyLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    final values = [10.0, 14.0];
-
     return BlocConsumer<BmiCubit, BmiState>(
       listener: (context, state) {
         if (state is BmiFailureState) {
@@ -54,18 +52,18 @@ class _FancyLineChartState extends State<FancyLineChart> {
           }
 
           return Container(
-            height: 260,
-            padding: const EdgeInsets.all(16),
+            height: 260.h,
+            padding: EdgeInsets.all(25.w),
             decoration: BoxDecoration(
-              color: const Color(0xFF111827),
-              borderRadius: BorderRadius.circular(12),
+              color: AppColors.black,
+              borderRadius: BorderRadius.circular(12.r),
             ),
             child: LineChart(
               LineChartData(
                 minX: 0,
                 maxX: 6,
                 minY: 0,
-                maxY: 30,
+                maxY: 40,
 
                 gridData: FlGridData(show: false),
                 borderData: FlBorderData(show: false),
@@ -85,9 +83,8 @@ class _FancyLineChartState extends State<FancyLineChart> {
                       reservedSize: 36,
                       getTitlesWidget: (value, meta) => Text(
                         value.toInt().toString(),
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10,
+                        style: AppTextStyles.b2.copyWith(
+                          color: AppColors.white.withAlpha(90),
                         ),
                       ),
                     ),
@@ -99,9 +96,8 @@ class _FancyLineChartState extends State<FancyLineChart> {
                       interval: 1,
                       getTitlesWidget: (value, meta) => Text(
                         value.toInt().toString(),
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 10,
+                        style: AppTextStyles.b2.copyWith(
+                          color: AppColors.white.withAlpha(90),
                         ),
                       ),
                     ),
@@ -115,10 +111,7 @@ class _FancyLineChartState extends State<FancyLineChart> {
                         .map(
                           (spot) => LineTooltipItem(
                             spot.y.toStringAsFixed(1),
-                            const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            AppTextStyles.b1.copyWith(color: AppColors.black),
                           ),
                         )
                         .toList(),
@@ -131,7 +124,7 @@ class _FancyLineChartState extends State<FancyLineChart> {
                       data.length,
                       (i) => FlSpot(
                         i.toDouble(),
-                        (data[i]?.bmi ?? 0).clamp(0, 30),
+                        (data[i]?.bmi ?? 0).clamp(0, 40),
                       ),
                     ),
                     isCurved: true,
@@ -139,15 +132,15 @@ class _FancyLineChartState extends State<FancyLineChart> {
                     dotData: FlDotData(show: true),
 
                     gradient: const LinearGradient(
-                      colors: [Color(0xFF22D3EE), Color(0xFF10B981)],
+                      colors: [AppColors.blue, AppColors.green],
                     ),
 
                     belowBarData: BarAreaData(
                       show: true,
                       gradient: LinearGradient(
                         colors: [
-                          const Color(0xFF22D3EE).withOpacity(0.3),
-                          const Color(0xFF10B981).withOpacity(0.05),
+                          AppColors.blue.withOpacity(0.3),
+                          AppColors.green.withOpacity(0.05),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,

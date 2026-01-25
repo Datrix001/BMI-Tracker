@@ -5,6 +5,7 @@ import 'package:bmi_tracker/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_state.dart';
 import 'package:bmi_tracker/features/home/presentation/widgets/my_bar_graph.dart';
 import 'package:bmi_tracker/features/profile/data/model/profile_model.dart';
+import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,13 +102,44 @@ class _BmiScreenState extends State<BmiScreen> {
               ),
             );
           }
-        }
+          if (state.model != null) {
+            final data = state.model;
+            return Padding(
+              padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 20.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FancyLineChart(),
+                  20.verticalSpace,
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [FancyLineChart()],
-        );
+                  appTextS3("Today's Report :"),
+
+                  10.verticalSpace,
+                  bmiText(data!.bmi),
+                  10.verticalSpace,
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: bmiColor(data.bmi).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      "Obese",
+                      style: TextStyle(
+                        color: bmiColor(data.bmi),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+        }
+        return SizedBox.shrink();
       },
     );
   }
@@ -132,5 +164,32 @@ class _BmiScreenState extends State<BmiScreen> {
     );
 
     context.read<HomeCubit>().sendData(editProfileModel);
+  }
+
+  Widget bmiText(double bmi) {
+    if (bmi < 18.5) {
+      return appTextB1(
+        "Your BMI today is ${bmi.toStringAsFixed(1)}. You may need to gain a little weight for optimal health.",
+      );
+    } else if (bmi < 25) {
+      return appTextB1(
+        "Your BMI today is ${bmi.toStringAsFixed(1)}. You are within the healthy weight range. Great job!",
+      );
+    } else if (bmi < 30) {
+      return appTextB1(
+        "Your BMI today is ${bmi.toStringAsFixed(1)}. A small lifestyle change can make a big difference.",
+      );
+    } else {
+      return appTextB1(
+        "Your BMI today is ${bmi.toStringAsFixed(1)}. Consider consulting a healthcare professional for guidance.",
+      );
+    }
+  }
+
+  Color bmiColor(double bmi) {
+    if (bmi < 18.5) return AppColors.blue;
+    if (bmi < 25) return AppColors.green;
+    if (bmi < 30) return AppColors.orange;
+    return AppColors.red;
   }
 }
