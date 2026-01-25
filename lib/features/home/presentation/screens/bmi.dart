@@ -4,7 +4,7 @@ import 'package:bmi_tracker/features/auth/widgets/custom_form_field.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_state.dart';
 import 'package:bmi_tracker/features/home/presentation/widgets/my_bar_graph.dart';
-import 'package:bmi_tracker/features/profile/data/model/profile_model.dart';
+import 'package:bmi_tracker/features/profile/data/model/bmi_model.dart';
 import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,12 +126,9 @@ class _BmiScreenState extends State<BmiScreen> {
                       color: bmiColor(data.bmi).withOpacity(0.15),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Text(
-                      "Obese",
-                      style: TextStyle(
-                        color: bmiColor(data.bmi),
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: appTextB1(
+                      bmiText1(data.bmi),
+                      color: bmiColor(data.bmi),
                     ),
                   ),
                 ],
@@ -191,5 +188,12 @@ class _BmiScreenState extends State<BmiScreen> {
     if (bmi < 25) return AppColors.green;
     if (bmi < 30) return AppColors.orange;
     return AppColors.red;
+  }
+
+  String bmiText1(double bmi) {
+    if (bmi < 18.5) return "UnderWeight";
+    if (bmi < 25) return "Healthy";
+    if (bmi < 30) return "OverWeight";
+    return "Obsese";
   }
 }

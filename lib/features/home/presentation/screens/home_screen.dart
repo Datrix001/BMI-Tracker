@@ -3,6 +3,7 @@ import 'package:bmi_tracker/features/home/presentation/screens/bmi.dart';
 import 'package:bmi_tracker/features/profile/presentation/screens/profile.dart';
 import 'package:bmi_tracker/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,16 +33,25 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         title: appTextS1(_pageName[current_index]),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.black,
-        unselectedItemColor: AppColors.black.withAlpha(80),
-        currentIndex: current_index,
-        onTap: _navigateScreen,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.r),
+          topRight: Radius.circular(20.r),
+          bottomLeft: Radius.circular(20.r),
+          bottomRight: Radius.circular(20.r),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: AppColors.black,
+          selectedItemColor: AppColors.white,
+          unselectedItemColor: AppColors.white.withAlpha(80),
+          currentIndex: current_index,
+          onTap: _navigateScreen,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
 
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          ],
+        ),
       ),
       body: _pages[current_index],
     );

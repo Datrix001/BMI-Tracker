@@ -54,6 +54,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     : Icon(Icons.person, color: AppColors.white, size: 70.3.h),
               ),
             ),
+            10.verticalSpace,
+            appTextB1(user?.userMetadata!['name'] ?? ""),
             20.verticalSpace,
             CustomIconButton(
               onTap: () => context.push("/edit-bmi"),

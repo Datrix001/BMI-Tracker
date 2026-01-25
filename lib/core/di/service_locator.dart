@@ -4,11 +4,13 @@ import 'package:bmi_tracker/features/auth/data/repository/auth_repository_impl.d
 import 'package:bmi_tracker/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/bmi_cubit.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_cubit.dart';
+import 'package:bmi_tracker/features/profile/data/data_sources/profile_local_datasources.dart';
 import 'package:bmi_tracker/features/profile/data/data_sources/profile_remote_datasources.dart';
 import 'package:bmi_tracker/features/profile/data/repository/profile_repository.dart';
 import 'package:bmi_tracker/features/profile/data/repository/profile_repository_impl.dart';
 import 'package:bmi_tracker/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final getIt = GetIt.instance;
@@ -32,6 +34,7 @@ Future<void> loadDependencies() async {
   getIt.registerLazySingleton<ProfileRepository>(
     () => ProfileRepositoryImpl(
       remoteDatasources: getIt<ProfileRemoteDatasources>(),
+      localDatasources: getIt<ProfileLocalDatasources>(),
     ),
   );
   getIt.registerLazySingleton<ProfileCubit>(
@@ -44,5 +47,9 @@ Future<void> loadDependencies() async {
 
   getIt.registerLazySingleton<BmiCubit>(
     () => BmiCubit(getIt<ProfileRepository>()),
+  );
+
+  getIt.registerLazySingleton<ProfileLocalDatasources>(
+    () => ProfileLocalDatasources(bmiBox: Hive.box('bmi')),
   );
 }

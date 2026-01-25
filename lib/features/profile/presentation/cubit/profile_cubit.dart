@@ -1,4 +1,4 @@
-import 'package:bmi_tracker/features/profile/data/model/profile_model.dart';
+import 'package:bmi_tracker/features/profile/data/model/bmi_model.dart';
 import 'package:bmi_tracker/features/profile/data/repository/profile_repository.dart';
 import 'package:bmi_tracker/features/profile/presentation/cubit/profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

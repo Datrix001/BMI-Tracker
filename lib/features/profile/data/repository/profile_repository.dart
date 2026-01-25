@@ -1,4 +1,4 @@
-import 'package:bmi_tracker/features/profile/data/model/profile_model.dart';
+import 'package:bmi_tracker/features/profile/data/model/bmi_model.dart';
 
 abstract class ProfileRepository {
   Future<void> sendData(BmiModel model);

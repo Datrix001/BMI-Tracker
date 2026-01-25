@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'profile_model.g.dart';
+part 'bmi_model.g.dart';
 
 @JsonSerializable()
 class BmiModel {
