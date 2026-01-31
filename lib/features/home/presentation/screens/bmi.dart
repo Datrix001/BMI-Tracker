@@ -1,6 +1,6 @@
 import 'package:bmi_tracker/core/styles/app_text.dart';
-import 'package:bmi_tracker/features/auth/widgets/custom_button.dart';
-import 'package:bmi_tracker/features/auth/widgets/custom_form_field.dart';
+import 'package:bmi_tracker/features/auth/presentation/widgets/custom_button.dart';
+import 'package:bmi_tracker/features/auth/presentation/widgets/custom_form_field.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bmi_tracker/features/home/presentation/cubit/home_state.dart';
 import 'package:bmi_tracker/features/home/presentation/widgets/my_bar_graph.dart';
